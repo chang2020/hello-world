@@ -1,11 +1,14 @@
 var http = require('http');
 
-var handleRequest = function(request, response) {
-  console.log('Received request for URL: ' + request.url);
-  response.writeHead(200);
-  response.end('Hello World Again!');
+var userCount = 0;
+http.createServer(function (request, response) {
+    console.log('New connection');
+    userCount++;
 
-};
-var www = http.createServer(handleRequest);
-www.listen(8089);
+    response.writeHead(200, {'Content-Type': 'text/plain'});
+    response.write('Hello!\n');
+    response.write('We have had '+userCount+' visits!\n');
+    response.end();
+}).listen(8089);
+
 console.log('Server started');
